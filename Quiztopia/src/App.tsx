@@ -4,6 +4,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
 import HomePage from './views/HomePage/HomePage'
 import MapPage from './views/MapPage/MapPage'
+import QuizPage from './views/QuizPage/QuizPage'
 
 const router =  createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const router =  createBrowserRouter([
   {
     path:'/map',
     element: <MapPage />
+  },
+  {
+    path:'quiz',
+    element: <QuizPage />
   }
 ])
 
