@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
-
+import { useNavigate } from 'react-router-dom';
 import './HomePage.css'
+import { log } from 'console';
 
 interface ApiSignupResponse {
   success: boolean;
@@ -27,7 +28,7 @@ interface Account {
 }
 
 function HomePage() {
-  // const [count, setCount] = useState(0)
+  
   const [username, setUsername] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [message, setMessage]   = useState<string>('')
@@ -43,7 +44,8 @@ function HomePage() {
     //2. förklara request
     //3. skicka request och vänta på svar
     //4. oavsett success eller failure: visa för användaren
-
+    console.log();
+    
     const url = `https://fk7zu3f4gj.execute-api.eu-north-1.amazonaws.com/auth/signup`
     const settings = {
       method: 'POST',
@@ -102,7 +104,20 @@ function HomePage() {
         } else{
           setMessage2('kunde inte hämta användar info')
         }
+        console.log(data.account);
+        
   }
+
+  
+const navigate = useNavigate();
+  const navMap = () => { 
+    navigate('/map')
+  }
+
+  const navQuiz = () => { 
+    navigate('/quiz')
+  }
+
 
   return (
     <div>
@@ -121,6 +136,10 @@ function HomePage() {
           <button className='framed-div__button' onClick={handleLogin}>logga in</button>
         </div>
         <p>{message}</p>
+        <div>
+          <button className='framed-div__button' onClick={navMap}>map</button>
+          <button className='framed-div__button' onClick={navQuiz}>quiz</button>
+        </div>
         </section>
 
         <section className='framed'>
