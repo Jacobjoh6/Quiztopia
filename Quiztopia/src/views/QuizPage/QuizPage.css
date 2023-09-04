@@ -1,0 +1,42 @@
+
+
+.quiz-container{
+    width: 20rem;
+    height: 30rem;
+    background-color: antiquewhite;
+    display: flex;
+    flex-direction: column;
+}
+
+.quiz-map{
+    height: 15rem;
+    width: 20rem;
+    background-color: rgb(152, 129, 170);
+}
+
+.quiz-container__btn{
+    background-color: blue;
+    display: flex;
+    flex-direction: row;
+    height: 8rem;
+    margin: 1rem;
+    align-items: center;
+    justify-content: center;
+}
+
+/* .div-btn{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+} */
+
+.btn{
+    height: 2.5rem;
+    width: 5rem;
+}
+
+.input{
+    height: 2rem;
+    width: 5rem;
+}
