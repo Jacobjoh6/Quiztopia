@@ -2,14 +2,19 @@ import './App.css'
 // import { useState } from 'react'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
-import HomePage from './views/HomePage/HomePage'
+import LogPage from './views/LogPage/LogPage'
 import MapPage from './views/MapPage/MapPage'
 import QuizPage from './views/QuizPage/QuizPage'
+import HomePage from './views/HomePage/HomePage'
 
 const router =  createBrowserRouter([
   {
     path:'/',
     element: <HomePage />
+  },
+  {
+    path:'/log',
+    element: <LogPage />
   },
   {
     path:'/map',

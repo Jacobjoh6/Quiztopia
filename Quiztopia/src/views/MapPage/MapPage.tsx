@@ -2,16 +2,10 @@
   import { useState, useRef, useEffect } from 'react'
   import mapboxgl, { Map as MapGl } from 'mapbox-gl';
   import 'mapbox-gl/dist/mapbox-gl.css';
+  import { Position, GetQuiz, AddQuestion } from '../../interfaces';
 
-	 mapboxgl.accessToken = 'pk.eyJ1IjoiamFjb2Jqb2gwOCIsImEiOiJjbGx6M2pqMXYwZTZ5M2NvNzNscm5rZWtuIn0.C2QkVLDoLFvrae_e65EGpg';
-// 	// import.meta.env.VITE_MAPBOX_TOKEN as string
-// 	// console.log('Kontrollera att access token hittas: ', import.meta.env.VITE_MAPBOX_TOKEN);
-interface Position {
-	lng: number;
-	lat: number;
-}
+	mapboxgl.accessToken = 'pk.eyJ1IjoiamFjb2Jqb2gwOCIsImEiOiJjbGx6M2pqMXYwZTZ5M2NvNzNscm5rZWtuIn0.C2QkVLDoLFvrae_e65EGpg';
 
-interface GetQuiz {}
 
  	function MapPage() {
 
@@ -39,7 +33,9 @@ interface GetQuiz {}
 	 		setLng(Number(position.lng.toFixed(4)))
 	 		setZoom(map.getZoom());
 	 	})
+			
 	 }, [lat, lng, zoom])
+
 
 	return (
  		<div className='map-page__container'>
@@ -50,8 +46,11 @@ interface GetQuiz {}
 					<p> Center position: {lat} lat, {lng} lng </p>
 				</section>
 				<aside>
-					<li></li>
+					<button >Get quiz</button>
 				</aside>
+				<section>
+					<li></li>
+				</section>
 			 </main>
  		</div>
  	)
