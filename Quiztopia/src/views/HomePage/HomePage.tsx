@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import './HomePage.css'
-import { log } from 'console';
 
 interface ApiSignupResponse {
   success: boolean;
@@ -9,9 +8,10 @@ interface ApiSignupResponse {
 }
 
 interface ApiLoginResponse {
+  username: string,
   success: boolean;
   message?: string;
-  token?: string;
+  token: string;
 }
 
 interface ApiTokenResponse{
@@ -28,7 +28,8 @@ interface Account {
 }
 
 function HomePage() {
-  
+
+  const navigate = useNavigate();
   const [username, setUsername] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [message, setMessage]   = useState<string>('')
@@ -76,43 +77,43 @@ function HomePage() {
     }
     const logResponse = await fetch(url, logSettings)
     const logData: ApiLoginResponse = await logResponse.json()
-    console.log('handleLogin: ', logData);
     
-    if (logData.success) {
-      setMessage('användaren skapades!')
+    localStorage.setItem('token', logData.token)
+    localStorage.setItem('username', logData.username)
 
-      if (logData.token) setToken(logData.token)
-    } else{
-      setMessage('Kunde inte skapa användare!')
-    }  
+    console.log('handleLogin: ', logData);
+    navigate('/quiz')
+
+  }
+  const navMap = () => { 
+    
   }
 
-  const handleToken = async () => {
-    const url = 'https://fk7zu3f4gj.execute-api.eu-north-1.amazonaws.com/account'
-    const settings = {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    }
-    const response = await fetch(url, settings)
-    const data: ApiTokenResponse = await response.json()
-    console.log('handleToken', data);
-        if(data.success && data.account) {
-          const account: Account = data.account 
-          setMessage2(`userid: ${account.userId}`)
-        } else{
-          setMessage2('kunde inte hämta användar info')
-        }
-        console.log(data.account);
+  // const handleToken = async () => {
+  //   const url = 'https://fk7zu3f4gj.execute-api.eu-north-1.amazonaws.com/account'
+  //   const settings = {
+  //     method: 'GET',
+  //     headers: {
+  //       Authorization: `Bearer ${token}`
+  //     }
+  //   }
+  //   const response = await fetch(url, settings)
+  //   const data: ApiTokenResponse = await response.json()
+  //   console.log('handleToken', data);
+  //       if(data.success && data.account) {
+  //         const account: Account = data.account 
+  //         setMessage2(`userid: ${account.userId}`)
+  //       } else{
+  //         setMessage2('kunde inte hämta användar info')
+  //       }
+  //       console.log(data.account);
         
-  }
+  // }
 
   
-const navigate = useNavigate();
-  const navMap = () => { 
-    navigate('/map')
-  }
+
+
+
 
   const navQuiz = () => { 
     navigate('/quiz')
@@ -142,12 +143,12 @@ const navigate = useNavigate();
         </div>
         </section>
 
-        <section className='framed'>
+        {/* <section className='framed'>
           <h2>när inloggad</h2>
           <p>{token ? token : 'ingen token'}</p>
           <button onClick={ handleToken }>get user info</button>
           <p>{message2}</p>
-        </section>
+        </section> */}
       </main> 
     </div>
   )
