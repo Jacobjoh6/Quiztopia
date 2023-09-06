@@ -55,6 +55,6 @@ interface GetQuiz {}
 			 </main>
  		</div>
  	)
-	}
+	} 
 
 	export default MapPage
