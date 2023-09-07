@@ -1,5 +1,4 @@
 
-
 .quiz-container{
     width: 20rem;
     height: 30rem;
@@ -8,10 +7,14 @@
     flex-direction: column;
 }
 
+.quiz-container__main{
+    display: flex;
+    flex-direction: column;
+}
+
 .quiz-map{
     height: 15rem;
     width: 20rem;
-    background-color: rgb(152, 129, 170);
 }
 
 .quiz-container__btn{
@@ -39,4 +42,36 @@
 .input{
     height: 2rem;
     width: 5rem;
+}
+
+.quiz-list {
+    margin: 0%;
+    height: 8rem;
+    overflow-y: scroll;
+}
+
+.quiz-list::-webkit-scrollbar {
+    width: 12px;
+}
+
+.quiz-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.quiz-list::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+.quiz-list::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.quiz-list::-webkit-scrollbar-button {
+    display: none;
+}
+
+.quiz-list__item{
+    list-style: none;
+    background-color: #97bc8e;
+    border:1px dotted red;
 }

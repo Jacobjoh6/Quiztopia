@@ -1,19 +1,25 @@
   import './MapPage.css'
   import { useState, useRef, useEffect } from 'react'
+  import { useLocation } from 'react-router-dom';
   import mapboxgl, { Map as MapGl } from 'mapbox-gl';
   import 'mapbox-gl/dist/mapbox-gl.css';
-  import { Position, GetQuiz, AddQuestion } from '../../interfaces';
+  import { Position, GetQuiz, AddQuestion, Question } from '../../interfaces';
 
 	mapboxgl.accessToken = 'pk.eyJ1IjoiamFjb2Jqb2gwOCIsImEiOiJjbGx6M2pqMXYwZTZ5M2NvNzNscm5rZWtuIn0.C2QkVLDoLFvrae_e65EGpg';
 
 
  	function MapPage() {
-
+	const location = useLocation()
+	const currentQuiz = location.state
 	 const mapContainer = useRef(null)
 	 const mapRef = useRef<MapGl | null>(null)
 	 const [lat, setLat] = useState<number>(57.7)
 	 const [lng, setLng] = useState<number>(11.89)
 	 const [zoom, setZoom] = useState<number>(10)
+	 const [quizzes, setQuizzes]   = useState<any>([])
+
+	 const markerRef = useRef<mapboxgl.Marker | null>(null)
+	 const marker = useRef<mapboxgl.Marker | null>(null)
 
 	 useEffect(() => {
 	 	if( mapRef.current || !mapContainer.current ) return
@@ -33,8 +39,65 @@
 	 		setLng(Number(position.lng.toFixed(4)))
 	 		setZoom(map.getZoom());
 	 	})
-			
+		 markerRef.current = new mapboxgl.Marker({}).setLngLat([lng, lat]).addTo(map)
+
+			const quizId = currentQuiz.quizId;
+			const username = currentQuiz.username;
+
+			 currentQuiz.questions.forEach((question: Question) => {
+				const lat =+question.location.latitude
+				const lng =+question.location.longitude
+			marker.current = new mapboxgl.Marker()
+			  .setLngLat([lng, lat])
+			   // Replace with actual coordinates
+			  .setPopup(new mapboxgl.Popup({ offset:25 }).setHTML(
+				`
+				<div>
+					<h3>
+					${question.question}
+					<h3/>
+					<p>${question.answer}<p/>
+					<p>${question.location.longitude}<p/>
+					<p>${question.location.latitude}<p/>
+				<div/>
+				`
+			  ))
+			  .addTo(map);
+			 });
+		  		
 	 }, [lat, lng, zoom])
+
+	 useEffect(() => {
+        async function fetchData() {
+          try {
+            const data = await handleGetQuiz();
+            setQuizzes(data);
+          } catch (error) {
+            console.error('Error fetching quizzes:', error);
+          }
+        }
+    
+        fetchData();
+      }, []);
+  
+    async function handleGetQuiz(): Promise<GetQuiz[]> {
+        try {
+          const url = "https://fk7zu3f4gj.execute-api.eu-north-1.amazonaws.com/quiz";
+          const response = await fetch(url);
+      
+          if (!response.ok) {
+            throw new Error(`Hämtningen av status misslyckades ${response.status}`);
+          }
+          const data = await response.json();
+          console.log(data);
+          return data.quizzes;
+        } catch (error) {
+          console.log("Något blev fel:", error);
+          throw error;
+        }
+      }
+
+
 
 
 	return (
@@ -45,12 +108,20 @@
 			 		<div ref={mapContainer} className="map-container" />
 					<p> Center position: {lat} lat, {lng} lng </p>
 				</section>
-				<aside>
-					<button >Get quiz</button>
-				</aside>
-				<section>
-					<li></li>
-				</section>
+				{/* <section>
+                        <h3>All quizes</h3>
+                        <article className='quiz-list'>
+                            <ul>
+                                {quizzes.map((quiz:any) => (
+                                <li key={quiz.quizId.userId} className='quiz-list__item'>
+                                    <p>{quiz.username}</p>
+                                    <h5>{quiz.quizId}</h5>
+                                    <button onClick={() =>handleShowQuizOnMap(quiz)}>show quiz</button> 
+                                </li>
+                                ))}
+                            </ul>
+                        </article>
+                    </section> */}
 			 </main>
  		</div>
  	)

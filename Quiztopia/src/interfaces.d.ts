@@ -4,12 +4,28 @@ interface Position {
 	lat: number;
 }
 
-interface GetQuiz {
-	questions: AddQuestion[];
-	userId: string;
-	quizId: string;
+interface Question {
+  question: string;
+  answer: string;
+  location: {
+    longitude: string;
+    latitude: string;
+  }
 }
 
+interface GetQuiz {
+    questions: {
+      question: string;
+      answer: string;
+      location: {
+        longitude: string;
+        latitude: string;
+      };
+    }[];
+    quizId: string;
+    userId: string;
+  }
+  
 //LogPage
 interface ApiSignupResponse {
     success: boolean;
@@ -43,4 +59,4 @@ interface AddQuestion{
     answer: string,
 }
 
-export { Position, GetQuiz, ApiSignupResponse, ApiLoginResponse, Account, CreateQuiz, AddQuestion }
+export { Position, GetQuiz, ApiSignupResponse, ApiLoginResponse, Account, CreateQuiz, AddQuestion, Question }
