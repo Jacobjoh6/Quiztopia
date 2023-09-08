@@ -1,12 +1,14 @@
 
 .zz {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-align: center;
 }
 
 .quiz-container{
-    width: 30rem;
+    width: 35rem;
     height: 50rem;
     background-color: rgb(192, 247, 190);
     display: flex;
@@ -22,7 +24,7 @@
 
 .quiz-map{
     height: 15rem;
-    width: 30rem;
+    width: 35rem;
 }
 
 .quiz-container__btn{
@@ -36,7 +38,9 @@
     justify-content: space-evenly;
 }
 
-
+.quiz-list{
+    width: 30rem;
+}
 
 .btn{
     height: 2.5rem;
@@ -49,7 +53,6 @@
 }
 
 .quiz-list {
-    width: fit-content;
     height: 8rem;
     overflow-y: scroll;
 }
@@ -75,6 +78,13 @@
 }
 
 .quiz-list__item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: .5rem;
+    width: 20rem;
     list-style: none;
     background-color: rgb(192, 247, 190);
     border:1px solid rgb(7, 7, 7);

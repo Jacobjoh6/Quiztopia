@@ -167,6 +167,7 @@ return(
                 <input type="text" value={quizname}    onChange={event => setQuizname(event.target.value)}/>
                 <button onClick={ handleAddQuiz }>Create quiz</button>
             </aside>
+            <h3>Vänligen placera en punkt på kartan innan du skriver fråga och svar</h3>
             <aside className="quiz-container__btn">
                 <div className='btn-div'>
                     <input type="text" 
@@ -184,15 +185,14 @@ return(
                     value={answer} 
                     onChange={event => setAnswer(event.target.value)}
                     />
-                    {/* <button className='btn'>Add answer</button> */}
+                    
                 </div>
                 <button className='btn'onClick={handleAddQuestion}>Add question</button>
             </aside>
-            {/* <button onClick={handleGetQuiz}>get all quiz</button> */}
             <section>
             <h3>All quizes</h3>
-            <article className='quiz-list'>
-                <ul>
+            <article className='quiz-list-container'>
+                <ul className='quiz-list'>
                     {quizzes.map((quiz:any) => (
                         <li key={quiz.quizId.userId} className='quiz-list__item'>
                             <p>Username: {quiz.username}</p>
