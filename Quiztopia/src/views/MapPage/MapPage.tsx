@@ -97,33 +97,20 @@
         }
       }
 
-
-
-
 	return (
- 		<div className='map-page__container'>
-			<header> Mapbox demo </header>
+	<div className='map-page'>
+ 		<div className='map-page-container'>
+			<header>
+				<h1>Play the quizzes</h1>
+			</header>
 			<main>
-				<section>
+				<section className='map-page-container__section'>
 			 		<div ref={mapContainer} className="map-container" />
 					<p> Center position: {lat} lat, {lng} lng </p>
 				</section>
-				{/* <section>
-                        <h3>All quizes</h3>
-                        <article className='quiz-list'>
-                            <ul>
-                                {quizzes.map((quiz:any) => (
-                                <li key={quiz.quizId.userId} className='quiz-list__item'>
-                                    <p>{quiz.username}</p>
-                                    <h5>{quiz.quizId}</h5>
-                                    <button onClick={() =>handleShowQuizOnMap(quiz)}>show quiz</button> 
-                                </li>
-                                ))}
-                            </ul>
-                        </article>
-                    </section> */}
 			 </main>
  		</div>
+	</div>
  	)
 	} 
 

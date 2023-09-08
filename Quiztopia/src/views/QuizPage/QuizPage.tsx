@@ -70,7 +70,7 @@ function QuizPage() {
         }, [lat, lng, zoom])
             
             
-            const handleAddQuiz = async () => {
+        const handleAddQuiz = async () => {
                 const url = 'https://fk7zu3f4gj.execute-api.eu-north-1.amazonaws.com/quiz'
                 const username = localStorage.getItem('username')
                 const token = localStorage.getItem('token')
@@ -91,12 +91,11 @@ function QuizPage() {
                 console.log('quiz created:', data);
                 
             }
-            const handleAddQuestion = async() => {
+        const handleAddQuestion = async() => {
                 
-                // const username = localStorage.getItem('username')
                 const token = localStorage.getItem('token')
-                const lat = '47'
-                const long = '35'
+                const lat = clickLat
+                const long = clickLng
                 console.log('question:', question,'Answer:', answer);
                 const url = 'https://fk7zu3f4gj.execute-api.eu-north-1.amazonaws.com/quiz/question'
                 const settings = {
@@ -121,7 +120,7 @@ function QuizPage() {
                 
             }
             
-            useEffect(() => {
+        useEffect(() => {
                 async function fetchData() {
                     try {
                         const data = await handleGetQuiz();
@@ -134,7 +133,7 @@ function QuizPage() {
                 fetchData();
             }, []);
             
-            async function handleGetQuiz(): Promise<GetQuiz[]> {
+        async function handleGetQuiz(): Promise<GetQuiz[]> {
                 try {
                     const url = "https://fk7zu3f4gj.execute-api.eu-north-1.amazonaws.com/quiz";
                     const response = await fetch(url);
@@ -156,60 +155,57 @@ function QuizPage() {
             }
             
             
-            return(
-                <div className="quiz-container">
-                <header>
-                <h1>Quizmania</h1>
-                </header>
-                <main className='quiz-container__main'>
-                <section className="quiz-map" ref={mapContainer}>
-                
-                </section>
-                <aside>
+return(
+    <div className='zz'>
+        <div className="quiz-container">
+            <header>
+            <h1>Quizmania</h1>
+            </header>
+        <main className='quiz-container__main'>
+            <section className="quiz-map" ref={mapContainer}></section>
+            <aside>
                 <input type="text" value={quizname}    onChange={event => setQuizname(event.target.value)}/>
                 <button onClick={ handleAddQuiz }>Create quiz</button>
-                </aside>
-                <aside className="quiz-container__btn">
+            </aside>
+            <aside className="quiz-container__btn">
                 <div className='btn-div'>
-                <input type="text" 
-                placeholder="Question" 
-                className='input' 
-                value={question} 
-                onChange={event => setQuestion(event.target.value)}
-                />
-                <button className='btn'
-                onClick={handleAddQuestion}>Add question</button>
+                    <input type="text" 
+                    placeholder="Question" 
+                    className='input' 
+                    value={question} 
+                    onChange={event => setQuestion(event.target.value)}
+                    />
+                    
                 </div>
                 <div className='btn-div'>
-                <input type="text" 
-                placeholder="Answer" 
-                className='input' 
-                value={answer} 
-                onChange={event => setAnswer(event.target.value)}
-                />
-                {/* <button className='btn'>Add answer</button> */}
-                <button onClick={handleGetQuiz}>get all quiz</button>
+                    <input type="text" 
+                    placeholder="Answer" 
+                    className='input' 
+                    value={answer} 
+                    onChange={event => setAnswer(event.target.value)}
+                    />
+                    {/* <button className='btn'>Add answer</button> */}
                 </div>
-                </aside>
-                <section>
-                <h3>All quizes</h3>
-                <article className='quiz-list'>
+                <button className='btn'onClick={handleAddQuestion}>Add question</button>
+            </aside>
+            {/* <button onClick={handleGetQuiz}>get all quiz</button> */}
+            <section>
+            <h3>All quizes</h3>
+            <article className='quiz-list'>
                 <ul>
-                {quizzes.map((quiz:any) => (
-                    <li key={quiz.quizId.userId} className='quiz-list__item'>
-                    <p>{quiz.username}</p>
-                    <p>{quiz.quizId}</p>
-                    <button onClick={() => showAllQuiz(quiz)}>show quiz</button>
-                    </li>
+                    {quizzes.map((quiz:any) => (
+                        <li key={quiz.quizId.userId} className='quiz-list__item'>
+                            <p>Username: {quiz.username}</p>
+                            <p>Quizname: {quiz.quizId}</p>
+                            <button onClick={() => showAllQuiz(quiz)}>show quiz</button>
+                        </li>
                     ))}
                     </ul>
-                    </article>
-                    </section>
+                </article>
+            </section>
+        </main>
+    </div>
+</div>
+)}
                     
-                    
-                    </main>
-                    
-                    </div>
-                    )}
-                    
-                    export default QuizPage
+export default QuizPage

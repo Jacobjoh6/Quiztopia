@@ -62,36 +62,27 @@ function LogPage() {
 
 
   return (
-    <div>
-      <header>
-        <h1>Quiztopia</h1>
-      </header>
-      <main className='login-form'>
-        <section className='framed'>
-          <h2>Hantera användare</h2>
-          <h3>Username</h3>
-          <input type="text" placeholder='username' value={username} onChange={event => setUsername(event.target.value)}/>
-          <h3>Password</h3>
-          <input type="text" placeholder='password' value={password} onChange={event => setPassword(event.target.value)}/>
-        <div className='framed-div'>
+  <div>
+
+    <main className='login-form'>
+      <section className='login-form-section'>
+        <h2>Logga in</h2>
+        <h3>Username</h3>
+        <input className='login-form-section__input' type="text" placeholder='username' value={username} onChange={event => setUsername(event.target.value)}/>
+        <h3>Password</h3>
+        <input className='login-form-section__input' type="text" placeholder='password' value={password} onChange={event => setPassword(event.target.value)}/>
+        <div className='login-form-section__div'>
           <button className='framed-div__button' onClick={handleCreateUser }>skapa användare</button>
           <button className='framed-div__button' onClick={handleLogin}>logga in</button>
         </div>
-        <p>{message}</p>
-        <div>
-          <button className='framed-div__button' onClick={navMap}>map</button>
-          <button className='framed-div__button' onClick={navQuiz}>quiz</button>
+      <p>{message}</p>
+        <div className='login-form-section__div'>
+          <button className='framed-div__button' onClick={navQuiz}>Spela ändå</button>
         </div>
-        </section>
+      </section>
 
-        {/* <section className='framed'>
-          <h2>när inloggad</h2>
-          <p>{token ? token : 'ingen token'}</p>
-          <button onClick={ handleToken }>get user info</button>
-          <p>{message2}</p>
-        </section> */}
-      </main> 
-    </div>
+    </main> 
+  </div>
   )
 }
 
